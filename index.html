@@ -3,90 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="专业的紫微斗数命理测算平台，通过古老占星术揭示您的命运轨迹、性格特点和人生运势。">
-    <meta name="keywords" content="紫微斗数,命理测算,占星,命运分析,八字算命,星座运势">
-    <meta name="author" content="紫微斗数研究中心">
-    <meta property="og:title" content="紫微斗数命理测算">
-    <meta property="og:description" content="专业的紫微斗数命理测算平台，揭示您的命运轨迹">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ziwei.example.com">
-    <meta property="og:image" content="https://ziwei.example.com/images/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="canonical" href="https://ziwei.example.com">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "紫微斗数命理测算",
-      "url": "https://ziwei.example.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://ziwei.example.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "紫微斗数研究中心",
-      "url": "https://ziwei.example.com",
-      "logo": "https://ziwei.example.com/images/logo.png",
-      "sameAs": [
-        "https://www.facebook.com/ziweiresearch",
-        "https://twitter.com/ziweiresearch"
-      ]
-    }
-    </script>
-    <title>紫微斗数命理测算 - 专业命理分析平台</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- 引入Google Fonts神秘字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
-    <!-- 引入Font Awesome图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="紫微斗数命理测算，精准解析你的命运轨迹">
+    <title>天机紫微斗数命盘</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="mystic-container">
-        <div class="mystic-header">
-            <h1><i class="fas fa-star"></i> 紫微斗数命理测算 <i class="fas fa-star"></i></h1>
-            <p class="mystic-subtitle">探索你的命运轨迹，揭开生命密码</p>
-        </div>
+        <header class="altar-header">
+            <h1>紫微斗数命盘推演</h1>
+            <div class="divider">✣ ✣ ✣</div>
+        </header>
         
-        <div class="mystic-form">
-            <div class="form-group">
-                <label for="birth-date">出生日期</label>
-                <input type="date" id="birth-date" class="mystic-input">
-            </div>
-            
-            <div class="form-group">
-                <label for="birth-time">出生时间</label>
-                <select id="birth-time" class="mystic-select">
-                    <option value="">请选择...</option>
-                    <option value="zi">子时 (23:00-01:00)</option>
-                    <option value="chou">丑时 (01:00-03:00)</option>
-                    <!-- 其他时辰选项 -->
-                </select>
-            </div>
-            
-            <button id="calculate-btn" class="mystic-button">
-                <i class="fas fa-calculator"></i> 开始测算
-            </button>
-        </div>
+        <section class="input-section">
+            <form id="birth-form">
+                <div class="form-group">
+                    <label for="birth-date">出生日期</label>
+                    <input type="date" id="birth-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="birth-time">出生时辰</label>
+                    <select id="birth-time" required>
+                        <option value="">--请选择--</option>
+                        <option value="23-1">子时 (23:00-1:00)</option>
+                        <!-- 其他时辰选项 -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>性别</label>
+                    <div class="gender-options">
+                        <label><input type="radio" name="gender" value="male" required> 男</label>
+                        <label><input type="radio" name="gender" value="female"> 女</label>
+                    </div>
+                </div>
+                <button type="submit" class="mystic-button">推演命盘</button>
+            </form>
+        </section>
         
-        <div class="mystic-result" id="result-section" style="display:none;">
-            <h2>你的命盘分析</h2>
-            <div class="result-grid">
-                <!-- 结果将通过JavaScript动态生成 -->
+        <section class="result-section hidden">
+            <div class="destiny-chart" id="destiny-chart">
+                <!-- 命盘将通过JS动态生成 -->
             </div>
-        </div>
+            <div class="interpretation">
+                <h3>命理解读</h3>
+                <p id="fortune-text"></p>
+            </div>
+        </section>
     </div>
-    
-    <div class="mystic-footer">
-        <p>© 2023 紫微斗数命理研究中心 | 探索未知，预见未来</p>
-    </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
