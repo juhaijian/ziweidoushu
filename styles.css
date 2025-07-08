@@ -1,0 +1,173 @@
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'ZCOOL XiaoWei', serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e6e6e6;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* 神秘容器 */
+.mystic-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+}
+
+/* 神秘头部样式 */
+.mystic-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.mystic-header h1 {
+    font-size: 2.5rem;
+    color: #f8d56b;
+    text-shadow: 0 0 10px rgba(248, 213, 107, 0.3);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.mystic-header i {
+    margin: 0 0.5rem;
+    color: #9c64ff;
+}
+
+.mystic-subtitle {
+    font-size: 1.1rem;
+    color: #b8b8b8;
+    font-style: italic;
+}
+
+/* 表单样式 */
+.mystic-form {
+    background: rgba(26, 26, 46, 0.7);
+    border: 1px solid #3d3d6b;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(156, 100, 255, 0.1);
+    backdrop-filter: blur(5px);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #d1b3ff;
+    font-size: 1.1rem;
+}
+
+.mystic-input, .mystic-select {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(40, 40, 70, 0.7);
+    border: 1px solid #4d4d8a;
+    border-radius: 4px;
+    color: #f0f0f0;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.mystic-input:focus, .mystic-select:focus {
+    outline: none;
+    border-color: #9c64ff;
+    box-shadow: 0 0 10px rgba(156, 100, 255, 0.5);
+}
+
+/* 按钮样式 */
+.mystic-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(45deg, #6a3093 0%, #a044ff 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'ZCOOL XiaoWei', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.mystic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(156, 100, 255, 0.4);
+}
+
+.mystic-button:active {
+    transform: translateY(0);
+}
+
+.mystic-button i {
+    margin-right: 0.5rem;
+}
+
+/* 结果区域 */
+.mystic-result {
+    background: rgba(26, 26, 46, 0.7);
+    border: 1px solid #3d3d6b;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(156, 100, 255, 0.1);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 1s ease-out;
+}
+
+.mystic-result h2 {
+    color: #f8d56b;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 5px rgba(248, 213, 107, 0.3);
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+/* 页脚样式 */
+.mystic-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .mystic-container {
+        padding: 1rem;
+    }
+    
+    .mystic-header h1 {
+        font-size: 2rem;
+    }
+    
+    .mystic-form, .mystic-result {
+        padding: 1.5rem;
+    }
+}
