@@ -190,6 +190,91 @@ input, select {
     }
 }
 
+/* 漂浮符文样式 */
+.rune-background {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.1;
+    z-index: -1;
+    animation: float 15s infinite ease-in-out, blink 5s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(20px, -15px); }
+    50% { transform: translate(-10px, 10px); }
+    75% { transform: translate(15px, 5px); }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.25; }
+}
+
+/* 四角符文样式 */
+.corner-rune-top-left,
+.corner-rune-top-right,
+.corner-rune-bottom-left,
+.corner-rune-bottom-right {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--golden-light);
+    opacity: 0.3;
+    transform-origin: center;
+}
+
+.corner-rune-top-left {
+    top: 15px;
+    left: 15px;
+    border-right: none;
+    border-bottom: none;
+    animation: rotate-left 20s infinite linear;
+}
+
+.corner-rune-top-right {
+    top: 15px;
+    right: 15px;
+    border-left: none;
+    border-bottom: none;
+    animation: rotate-right 20s infinite linear;
+}
+
+.corner-rune-bottom-left {
+    bottom: 15px;
+    left: 15px;
+    border-right: none;
+    border-top: none;
+    animation: rotate-right 20s infinite linear;
+}
+
+.corner-rune-bottom-right {
+    bottom: 15px;
+    right: 15px;
+    border-left: none;
+    border-top: none;
+    animation: rotate-left 20s infinite linear;
+}
+
+@keyframes rotate-left {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-right {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* 宫位连线画布 */
+#constellation-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .hidden {
     display: none;
 }
