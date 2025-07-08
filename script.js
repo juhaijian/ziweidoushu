@@ -128,6 +128,7 @@ function renderDestinyChart(destinyChart) {
     destinyChart.palaces.forEach(palace => {
         const cell = document.createElement('div');
         cell.className = 'chart-cell';
+        cell.dataset.palace = palace.name;
         
         const title = document.createElement('h4');
         title.textContent = palace.name;
@@ -146,4 +147,139 @@ function renderDestinyChart(destinyChart) {
     });
     
     document.getElementById('fortune-text').textContent = destinyChart.fortuneText;
+    
+    // 添加宫位连线动画
+    addConstellationLines();
+}
+
+// 添加宫位连线动画
+function addConstellationLines() {
+    const container = document.querySelector('.destiny-chart-container');
+    if (!container) return;
+    
+    // 移除现有canvas
+    const oldCanvas = document.getElementById('constellation-canvas');
+    if (oldCanvas) oldCanvas.remove();
+    
+    // 创建新canvas
+    const canvas = document.createElement('canvas');
+    canvas.id = 'constellation-canvas';
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    container.insertBefore(canvas, container.firstChild);
+    
+    const ctx = canvas.getContext('2d');
+    const cells = document.querySelectorAll('.chart-cell');
+    const centerPoints = [];
+    
+    // 获取所有宫位的中心点
+    cells.forEach(cell => {
+        const rect = cell.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        centerPoints.push({
+            x: rect.left + rect.width/2 - containerRect.left,
+            y: rect.top + rect.height/2 - containerRect.top,
+            palace: cell.dataset.palace
+        });
+    });
+    
+    // 定义连接关系（简化版）
+    const connections = [
+        {from: "命宫", to: "迁移"},
+        {from: "兄弟", to: "交友"},
+        {from: "夫妻", to: "事业"},
+        {from: "子女", to: "田宅"},
+        {from: "财帛", to: "福德"},
+        {from: "疾厄", to: "父母"}
+    ];
+    
+    // 绘制连接线
+    function drawLines() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+        ctx.lineWidth = 1;
+        
+        connections.forEach(conn => {
+            const fromPoint = centerPoints.find(p => p.palace === conn.from);
+            const toPoint = centerPoints.find(p => p.palace === conn.to);
+            
+            if (fromPoint && toPoint) {
+                ctx.beginPath();
+                ctx.moveTo(fromPoint.x, fromPoint.y);
+                ctx.lineTo(toPoint.x, toPoint.y);
+                ctx.stroke();
+                
+                // 添加光点效果
+                const gradient = ctx.createRadialGradient(
+                    toPoint.x, toPoint.y, 0,
+                    toPoint.x, toPoint.y, 5
+                );
+                gradient.addColorStop(0, 'rgba(212, 175, 55, 0.8)');
+                gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(toPoint.x, toPoint.y, 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        });
+    }
+    
+    // 初始绘制
+    drawLines();
+    
+    // 添加流动动画
+    let animationPhase = 0;
+    function animateLines() {
+        animationPhase = (animationPhase + 0.01) % (Math.PI * 2);
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+        ctx.lineWidth = 1;
+        
+        connections.forEach(conn => {
+            const fromPoint = centerPoints.find(p => p.palace === conn.from);
+            const toPoint = centerPoints.find(p => p.palace === conn.to);
+            
+            if (fromPoint && toPoint) {
+                // 基础线条
+                ctx.beginPath();
+                ctx.moveTo(fromPoint.x, fromPoint.y);
+                ctx.lineTo(toPoint.x, toPoint.y);
+                ctx.stroke();
+                
+                // 流动光效
+                const dx = toPoint.x - fromPoint.x;
+                const dy = toPoint.y - fromPoint.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const progress = Math.sin(animationPhase) * 0.5 + 0.5;
+                
+                const movingX = fromPoint.x + dx * progress;
+                const movingY = fromPoint.y + dy * progress;
+                
+                const gradient = ctx.createRadialGradient(
+                    movingX, movingY, 0,
+                    movingX, movingY, 8
+                );
+                gradient.addColorStop(0, 'rgba(255, 215, 0, 1)');
+                gradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(movingX, movingY, 8, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        });
+        
+        requestAnimationFrame(animateLines);
+    }
+    
+    animateLines();
+    
+    // 窗口大小变化时重置canvas
+    window.addEventListener('resize', () => {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
+        drawLines();
+    });
 }
